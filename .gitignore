@@ -1,0 +1,12 @@
+# runtime artifacts — never commit these
+cloud-qmd.json
+cloud-qmd/
+local-expansion.json
+*.bak.*
+
+# node
+node_modules/
+npm-debug.log*
+
+# macOS
+.DS_Store

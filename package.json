@@ -1,0 +1,42 @@
+{
+	"name": "cloud-qmd",
+	"version": "1.0.0",
+	"description": "Route qmd's vector search and reranking through cloud models (or any OpenAI-compatible endpoint), so pi-memory no longer needs local GGUF models.",
+	"type": "module",
+	"license": "MIT",
+	"private": false,
+	"engines": {
+		"node": ">=20"
+	},
+	"scripts": {
+		"test": "node test/smoke.mjs"
+	},
+	"files": [
+		"index.ts",
+		"lib/",
+		"test/",
+		"install.sh",
+		"README.md",
+		"README.zh-CN.md"
+	],
+	"keywords": [
+		"pi",
+		"pi-coding-agent",
+		"pi-memory",
+		"qmd",
+		"embeddings",
+		"rerank",
+		"hybrid-search",
+		"rag",
+		"siliconflow",
+		"bge-m3"
+	],
+	"peerDependencies": {
+		"@earendil-works/pi-coding-agent": "*"
+	},
+	"peerDependenciesMeta": {
+		"@earendil-works/pi-coding-agent": {
+			"optional": true
+		}
+	}
+}
