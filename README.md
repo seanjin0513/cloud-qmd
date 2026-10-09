@@ -91,7 +91,7 @@ Edit `<agentDir>/cloud-qmd.json` and put your key in it (the default reads the
     "apiKey": "sk-xxxxxxxxxxxxxxxx",
     "embedModel": "BAAI/bge-m3",
     "rerankModel": "BAAI/bge-reranker-v2-m3",
-    "chatModel": "Qwen/Qwen2.5-7B-Instruct"
+    "chatModel": "Qwen/Qwen3-8B"
   },
   "search": {
     "expansion": {

@@ -80,7 +80,7 @@ const DEFAULT_CONFIG = {
 		apiKey: "env:SILICONFLOW_API_KEY",
 		embedModel: "BAAI/bge-m3",
 		rerankModel: "BAAI/bge-reranker-v2-m3",
-		chatModel: "Qwen/Qwen2.5-7B-Instruct",
+		chatModel: "Qwen/Qwen3-8B",
 		timeoutMs: 60000,
 	},
 	search: {

@@ -80,7 +80,7 @@ pi-memory ──execFile("qmd")──▶  <agentDir>/bin/qmd          （shim，
     "apiKey": "sk-xxxxxxxxxxxxxxxx",
     "embedModel": "BAAI/bge-m3",
     "rerankModel": "BAAI/bge-reranker-v2-m3",
-    "chatModel": "Qwen/Qwen2.5-7B-Instruct"
+    "chatModel": "Qwen/Qwen3-8B"
   },
   "search": {
     "expansion": {

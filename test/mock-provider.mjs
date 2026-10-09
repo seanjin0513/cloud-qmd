@@ -71,8 +71,12 @@ http
 		if (req.url.endsWith("/chat/completions")) {
 			seen.chat++;
 			const q = body.messages?.at(-1)?.content ?? "";
+			// Deliberately the object shape `[{"query": …}]` that Qwen3-8B returns, so the
+			// engine's tolerant parser is exercised.
 			return send({
-				choices: [{ message: { content: JSON.stringify([`${q} 相关记录`, `${q} 决策`, `${q} 偏好`]) } }],
+				choices: [
+					{ message: { content: JSON.stringify([{ query: `${q} 相关记录` }, { query: `${q} 决策` }, { query: `${q} 偏好` }]) } },
+				],
 			});
 		}
 		if (req.url.endsWith("/stats")) return send(seen);

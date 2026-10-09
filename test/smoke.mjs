@@ -15,7 +15,7 @@ import { spawn, spawnSync } from "node:child_process";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const EXT_DIR = path.dirname(HERE);
@@ -187,6 +187,19 @@ async function main() {
 		check("query returns results", Array.isArray(qrows) && qrows.length > 0, `${qrows.length} rows`);
 		check("query called the chat model (expansion)", after.chat === before.chat + 1);
 		check("query called the reranker", after.rerank === before.rerank + 1);
+
+		// --- engine API: the cloud expansion parser --------------------------
+		// The mock chat endpoint answers with the object shape `[{"query": …}]` that
+		// Qwen3-8B actually produces, so a regression here would silently disable
+		// query expansion instead of failing the search.
+		process.env.CLOUD_QMD_CONFIG = CONFIG;
+		const engineApi = await import(pathToFileURL(ENGINE).href);
+		const variantsOut = await engineApi.expandQueries(engineApi.loadConfig(), "部署用的是什么工具", 3);
+		check(
+			"cloud expansion accepts object-shaped JSON arrays",
+			variantsOut.length === 3 && variantsOut.every((v) => typeof v === "string" && v.includes("部署用的是什么工具")),
+			JSON.stringify(variantsOut),
+		);
 
 		// --- incremental updates -------------------------------------------
 		fs.writeFileSync(path.join(MEMORY, "delta.md"), "# 新笔记\n\n增量索引应当只嵌入变化的部分。\n");
