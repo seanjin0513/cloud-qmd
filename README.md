@@ -49,9 +49,9 @@ extension writes `<agentDir>/bin/qmd` plus a config template on first load. Then
 `install.sh` refuses to overwrite an existing install; use `--force` to replace it (the old copy
 is backed up next to it as `cloud-qmd.bak.<timestamp>`).
 
-The extension writes `bin/qmd` and the config into `$PI_AGENT_DIR` when that variable is set, so if
-you install into a custom agent dir (or load it with `pi -e <dir>`), export `PI_AGENT_DIR` to match —
-otherwise the paths point at `~/.pi/agent`.
+The extension resolves the agent dir from its own install location when it lives at
+`<agentDir>/extensions/<name>`, so `PI_AGENT_DIR` is only needed for unusual layouts. Loading a plain
+checkout with `pi -e <dir>` falls back to `~/.pi/agent`, so a git clone is never written to.
 
 Requirements: Node.js ≥ 20, [qmd](https://github.com/tobilu/qmd) (`npm i -g @tobilu/qmd`),
 and a `pi` install that supports extensions. No npm dependencies.

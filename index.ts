@@ -20,12 +20,22 @@ import { spawn } from "node:child_process";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
 
+// This extension's own directory — known for certain, independent of the env.
+const EXT_DIR = path.dirname(fileURLToPath(import.meta.url));
+
+// Where to install the shim / config. An explicit PI_AGENT_DIR wins; otherwise,
+// when the extension sits at <agentDir>/extensions/<name>, derive the agent dir
+// from this file's location (so a custom install does not fall back to
+// ~/.pi/agent); anything else (e.g. `pi -e <clone>`) also uses the default, so a
+// checkout is never written to.
 const AGENT_DIR = process.env.PI_AGENT_DIR
 	? path.resolve(expandHomeEnv(process.env.PI_AGENT_DIR))
-	: path.join(os.homedir(), ".pi", "agent");
-const EXT_DIR = path.join(AGENT_DIR, "extensions", "cloud-qmd");
+	: path.basename(path.dirname(EXT_DIR)) === "extensions"
+		? path.dirname(path.dirname(EXT_DIR))
+		: path.join(os.homedir(), ".pi", "agent");
 const BIN_DIR = path.join(AGENT_DIR, "bin");
 const SHIM_PATH = path.join(BIN_DIR, "qmd");
 const ENGINE_PATH = path.join(EXT_DIR, "lib", "engine.mjs");

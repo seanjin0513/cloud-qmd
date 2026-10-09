@@ -21,8 +21,10 @@ bash install.sh              # 拷到 ${PI_AGENT_DIR:-~/.pi/agent}/extensions/cl
 `install.sh` 默认拒绝覆盖已有安装；加 `--force` 才会替换（旧的那份会备份成
 `cloud-qmd.bak.<时间戳>`）。
 
-扩展把 shim 和配置写到 `$PI_AGENT_DIR`（设了的话），所以装到非默认 agentDir 时（或用
-`pi -e <dir>` 加载时）记得 export `PI_AGENT_DIR`，否则路径会指向 `~/.pi/agent`。
+扩展把 shim 和配置写到 `$PI_AGENT_DIR`（设了的话）；没设时会从扩展自身的安装位置推导
+（扩展位于 `<agentDir>/extensions/<name>` 时自动认到那个 `agentDir`），所以装到非默认
+agentDir 也不用 export。只有用 `pi -e <checkout>` 直接加载仓库副本时才回退到 `~/.pi/agent`
+（这样不会往你的 git 仓库里写东西）。
 
 依赖：Node.js ≥ 20、[qmd](https://github.com/tobilu/qmd)（`npm i -g @tobilu/qmd`）、
 一个支持扩展的 pi。本扩展自身零 npm 依赖。
