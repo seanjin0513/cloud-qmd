@@ -195,8 +195,9 @@ complete passthrough with `enabled:false`, and the three local-expansion paths (
 downloaded / degraded when the model is corrupt / clean failure from `pull`).
 
 Useful knobs: `CLOUD_QMD_SHIM=/path/to/qmd node test/smoke.mjs` tests a specific installed shim,
-and `CLOUD_QMD_REAL_QMD=stub node test/smoke.mjs` forces a stub instead of the real qmd binary
-(that is what CI does).
+and `CLOUD_QMD_REAL_QMD=stub node test/smoke.mjs` replaces the real qmd binary with a stub (handy
+when qmd is not installed — the suite then asserts the passthrough routing instead of qmd's own
+output).
 
 ## Disable / rollback
 

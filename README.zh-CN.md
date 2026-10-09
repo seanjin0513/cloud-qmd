@@ -175,7 +175,8 @@ qmd __cloud selftest
 以及本地查询扩展的三条路径（未下载时跳过 / 模型损坏时降级 / `pull` 失败时干净报错）。
 
 两个开关：`CLOUD_QMD_SHIM=/path/to/qmd node test/smoke.mjs` 测某个已安装的 shim；
-`CLOUD_QMD_REAL_QMD=stub node test/smoke.mjs` 用桩替代真 qmd 二进制（CI 就是这么跑的）。
+`CLOUD_QMD_REAL_QMD=stub node test/smoke.mjs` 用桩替代真 qmd 二进制（没装 qmd 时用；
+此时断言的是透传路由，而不是 qmd 自己的输出）。
 
 ## 关闭 / 回滚
 
